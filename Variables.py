@@ -6,7 +6,7 @@ VIEOS_PATH=MEDIA_PATH+'Videos/'
 BACKGROUNDS={'Main' : 'bg-chuuni.jpg',
              'Music': 'bg.jpg'}
 
-version = 0.02
+version = 0.1
 name = "karu"
 
 def load_images():
