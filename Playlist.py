@@ -1,11 +1,8 @@
 from Variables import *
-import pygame
-from pygame.locals import *
 import sys
 import os
 from mutagen.id3 import ID3
-from Updater import *
-from datetime import datetime
+from Song import *
 
 class Playlist:
     def __init__(self, listFile=None):
@@ -23,7 +20,9 @@ class Playlist:
         lines = playlistFile.read().split('\n')
         playlistFile.close()
         for line in lines:
-            realdir = str(os.getcwd()) + MUSIC_PATH + line
+            if len(line) < 2:
+                break
+            realdir = str(os.getcwd()) + '\\' + MUSIC_PATH + line
             audio = ID3(realdir)
             name = audio['TIT2'].text[0]
             self.songs.append(Song(name, line))
@@ -87,5 +86,6 @@ class Playlist:
         else:
             self.currentlyPlaying = self.size-1
     def getCurSong(self):
-        return self.songs[self.currentlyPlaying]
+        path = self.songs[self.currentlyPlaying].path
+        return path
         

@@ -10,6 +10,7 @@ from Screen import *
 from Button import *
 from MainScreen import *
 from MusicScreen import *
+from PlaylistDisplay import *
 from ScreenManager import *
 
 class PlaylistManager:
@@ -23,6 +24,8 @@ class PlaylistManager:
 if __name__ == '__main__':
 
     screenManager = ScreenManager(skrn)
+    screenManager.addScreen(MainScreen(skrn, screenManager))
+    screenManager.addScreen(MusicScreen(skrn, screenManager))
 
     pygame.display.set_caption(name)
 

@@ -8,17 +8,20 @@ from Updater import *
 from datetime import datetime
 from Screen import *
 from Button import *
-from MainScreen import *
 from MusicScreen import *
+from MainScreen import *
 
 class ScreenManager:
     def __init__(self, skrn):
         self.skrn = skrn
-        self.screens = [MainScreen(skrn, self), MusicScreen(skrn, self)]
+        self.screens = []
         self.currentScreen = 0
         self.mouse_pos = (0, 0)
         self.systemMessage = 'All Systems Green!'
     
+    def addScreen(self, screen):
+        self.screens.append(screen)
+
     def update(self):
         self.skrn.fill((0, 0, 0))
         self.screens[self.currentScreen].draw()
@@ -28,7 +31,11 @@ class ScreenManager:
         if not pygame.mixer.music.get_busy() and self.screens[1].playing:
             NextSong([self.screens[1]])
         # Mouse Logic
-        mouse_pos = pygame.mouse.get_pos()
+        self.mouse_pos = pygame.mouse.get_pos()
+        if not self.currentScreen == 1:
+            self.screens[1].drawButtons()
+            self.screens[1].buttonLogic()
     def event(self, event):
         self.screens[self.currentScreen].event(event)
-        
+        if not self.currentScreen == 1:
+            self.screens[1].buttonEvent(event)

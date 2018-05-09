@@ -8,14 +8,57 @@ from datetime import datetime
 from Screen import *
 from Button import *
 from Song import *
-from Playlist import *
+from PlaylistManager import *
 
 
 class MusicScreen(Screen):
     def __init__(self, skrn, screenManager, size=(800, 480)):
         Screen.__init__(self, skrn, size)
         self.screenManager = screenManager
-        self.bg = pygame.image.load(PICTURES_PATH+BACKGROUNDS['Music'])
+        self.playlistManager = PlaylistManager(skrn, screenManager)
+        self.playing = False
+        self.color_theme = (0, 153, 255)
+        
+        self.playButton = Button(skrn=skrn, size=self.size, text='>\||', text_size=30, callback=ToggleMusic, args=[self], dim=(100, 420, 50, 30), color=self.color_theme, width=0, text_offset=(15, 5))
+        self.nextButton = Button(skrn=skrn, size=self.size, color=self.color_theme, text='Next', text_size=30, callback=NextSong, args=[self], text_offset=(15, 5), dim=(165, 420, 75, 30), width=0)
+        self.prevButton = Button(skrn=skrn, size=self.size, color=self.color_theme, text='Prev', text_size=30, callback=NextSong, args=[self], text_offset=(15, 5), dim=(15, 420, 75, 30), width=0)
+        self.backButton = Button(skrn=self.skrn, size=self.size, color=self.color_theme, text='Back', callback=BackToMenu, args=[self.screenManager], text_offset=(10, 30), dim=(680, 350, 100, 100), text_size=50, text_color=self.color_theme, width=5)
+
+
+    def draw(self):
+        self.skrn.fill((35, 35, 35))
+        self.playlistManager.draw()
+        self.drawButtons()
+        self.backButton.draw()
+
+    def drawButtons(self):
+        self.playButton.draw()
+        self.nextButton.draw()
+        self.prevButton.draw()
+    
+    def logic(self):
+        self.playlistManager.logic()
+        self.buttonLogic()
+        self.backButton.logic()
+    def buttonLogic(self):
+        self.playButton.logic()
+        self.nextButton.logic()
+        self.prevButton.logic()
+
+    def event(self, event):
+        self.playlistManager.event(event)
+        self.buttonEvent(event)
+        self.backButton.event(event)
+    def buttonEvent(self, event):
+        self.playButton.event(event)
+        self.nextButton.event(event)
+        self.prevButton.event(event)
+
+'''
+class MusicScreen(Screen):
+    def __init__(self, skrn, screenManager, size=(800, 480)):
+        Screen.__init__(self, skrn, size)
+        self.screenManager = screenManager
         self.music = os.listdir(MUSIC_PATH)
         self.musicNames = []
         for song in self.music:
@@ -86,3 +129,4 @@ class MusicScreen(Screen):
         self.playPause.event(event)
         for x in range(self.start, self.end):
             self.musicButtons[x].event(event)
+'''

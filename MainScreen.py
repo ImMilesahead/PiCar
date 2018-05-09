@@ -14,10 +14,9 @@ class MainScreen(Screen):
     def __init__(self, skrn, screenManager, size=(800, 480)):
         Screen.__init__(self, skrn, size)
         self.screenManager = screenManager
-        self.text_color = ((0, 0, 0))
+        self.text_color = ((255, 255, 255))
         self.color_theme = (0, 153, 255)
         self.qButton = Button(skrn=self.skrn, size=self.size, color=self.color_theme, text='Quit', callback=Quit, text_offset=(10, 30), dim=(680, 350, 100, 100), text_size=50, text_color=self.text_color)
-        self.bg = pygame.image.load(PICTURES_PATH+BACKGROUNDS['Main'])
         self.musicButton = Button(skrn=skrn, size=self.size, color=self.color_theme, text='Music', callback=LoadMusic, args=[self.screenManager], text_offset=(125, 75), dim=(25, 25, 350, 190), text_color=self.text_color)
         self.updateButton = Button(skrn=skrn, size=self.size, color=self.color_theme, text='', callback=Update, text_offset=(10, 30), dim=(680, 240, 100, 100), text_size=36, text_color=self.text_color)
         
@@ -30,10 +29,9 @@ class MainScreen(Screen):
 
     def draw(self):
         # Draw background
-        #self.skrn.blit(self.bg, (0, 0))
         self.skrn.fill((35, 35, 35))
         self.skrn.blit(self.updateImage, (680, 242))
-        text(self.skrn, self.timeMessage, (450, 85), 96, (0, 0, 0))
+        text(self.skrn, self.timeMessage, (450, 85), 96, self.text_color)
         self.timeWindow.draw()
         self.qButton.draw()
         self.updateButton.draw()

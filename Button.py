@@ -10,6 +10,8 @@ from Screen import *
 
 
 pygame.init()
+pygame.mixer.init()
+     
 skrn = pygame.display.set_mode((800, 480))
 def Nothing():
     pass
@@ -26,13 +28,21 @@ def Quit():
     pygame.quit()
     sys.exit()
 
+def LoadPlaylist(args):
+    manager = args[0]
+    manager.playPlaylist(args[1])
+
 def LoadMusic(args):
     args[0].currentScreen = 1
 
 def BackToMenu(args):
-    args[0].currentScreen = 0
+    if args[0].screens[1].playlistManager.showPlaylist:
+        args[0].screens[1].playlistManager.showPlaylist = False
+    else:
+        args[0].currentScreen = 0
 
 def PlaySong(args):
+    print('Play a song')
     pygame.mixer.music.load(MUSIC_PATH+'\\'+args[0])
     pygame.mixer.music.play()
     print('Playing song at: ' + MUSIC_PATH+args[0])
@@ -62,18 +72,15 @@ def ScrollDown(args):
         musicScreen.start = musicScreen.end - 10
 
 def PreviousSong(args):
-    if args[0].cur_song == 0:
-        args[0].cur_song = len(args[0].music)-1
-    else:
-        args[0].cur_song = args[0].cur_song + 1
-    pygame.mixer.load(MUSIC_PATH+'\\'+args[0].music[args[0].cur_song])
+    manager = args[0].playlistManager
+    manager.prevSong()
+    pygame.mixer.load(MUSIC_PATH+'\\'+str(manager.getCurSong()))
+    pygame.mixer.music.pay()
 
 def NextSong(args):
-    if args[0].cur_song >= len(args[0].music):
-        args[0].cur_song = 0
-    else:
-        args[0].cur_song = args[0].cur_song + 1
-    pygame.mixer.music.load(MUSIC_PATH+'\\'+args[0].music[args[0].cur_song])
+    manager = args[0].playlistManager
+    manager.nextSong()
+    pygame.mixer.music.load(MUSIC_PATH+'\\'+str(manager.getCurSong()))
     pygame.mixer.music.play()
 
     
@@ -85,7 +92,7 @@ def text(skrn, text, pos=(0, 0), size=60, color=(255, 200, 100)):
 
 
 class Button(Screen):
-    def __init__(self, skrn, size=(800, 480), dim=(0, 0, 100, 100), color=(255, 0, 0), text='None', text_size=60, text_color=(255, 255, 255), text_offset=(0, 0), callback=Nothing, width=2, args=None):
+    def __init__(self, skrn, size=(800, 480), dim=(0, 0, 100, 100), color=(0, 153, 255), text='None', text_size=60, text_color=(255, 255, 255), text_offset=(0, 0), callback=Nothing, width=2, args=None):
         Screen.__init__(self, skrn, size)
         self.dim = dim
         self.color = color
