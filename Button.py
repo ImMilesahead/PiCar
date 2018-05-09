@@ -82,6 +82,7 @@ def PreviousSong(args):
 
 def NextSong(args):
     manager = args[0].playlistManager
+    args[0].playing = True
     manager.nextSong()
     pygame.mixer.music.load(MUSIC_PATH+'\\'+str(manager.getCurSong()))
     pygame.mixer.music.play()
