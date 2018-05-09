@@ -3,6 +3,7 @@ import sys
 import os
 from mutagen.id3 import ID3
 from Song import *
+from random import shuffle
 
 class Playlist:
     def __init__(self, listFile=None):
@@ -89,3 +90,5 @@ class Playlist:
         path = self.songs[self.currentlyPlaying].path
         return path
         
+    def shuffle(self):
+        shuffle(self.songs)

@@ -16,6 +16,9 @@ skrn = pygame.display.set_mode((800, 480))
 def Nothing():
     pass
 
+def Shuffle(args):
+    args[0].shuffle()
+    NextSong([args[1].screens[1]])
 
 def Update():
     global SystemMessage
@@ -92,11 +95,17 @@ def text(skrn, text, pos=(0, 0), size=60, color=(255, 200, 100)):
 
 
 class Button(Screen):
-    def __init__(self, skrn, size=(800, 480), dim=(0, 0, 100, 100), color=(0, 153, 255), text='None', text_size=60, text_color=(255, 255, 255), text_offset=(0, 0), callback=Nothing, width=2, args=None):
+    def __init__(self, skrn, size=(800, 480), dim=(0, 0, 100, 100), color=(0, 153, 255), text='None', text_size=60, text_color=(255, 255, 255), text_offset=(0, 0), callback=Nothing, width=2, args=None, image=None, image_offset=(3, 3), image_offscale=(6, 6)):
         Screen.__init__(self, skrn, size)
         self.dim = dim
         self.color = color
         self.text = text
+        self.image = image
+        self.image_offset= image_offset
+        self.image_offscale = image_offscale
+        if not image == None:
+            self.image = pygame.image.load(PICTURES_PATH + image)
+            self.image = pygame.transform.scale(self.image, (self.dim[2]-self.image_offscale[0], self.dim[3]-self.image_offscale[1]))
         self.text_size = text_size
         self.text_color = text_color
         self.text_offset = text_offset
@@ -110,7 +119,10 @@ class Button(Screen):
     def draw(self):
         pygame.draw.rect(self.skrn, self.color, self.dim, self.width)
         # draw text
-        text(skrn, self.text, (self.dim[0] + self.text_offset[0], self.dim[1] + self.text_offset[1]), self.text_size, self.text_color)
+        if not self.image == None:
+            self.skrn.blit(self.image, (self.dim[0]+self.image_offset[0], self.dim[1]+self.image_offset[1]))
+        else:
+            text(skrn, self.text, (self.dim[0] + self.text_offset[0], self.dim[1] + self.text_offset[1]), self.text_size, self.text_color)
 
     def logic(self):
         '''mouse_pos = pygame.mouse.get_pos()
