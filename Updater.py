@@ -24,10 +24,12 @@ def update():
                 call(['chmod', '+x', 'update.sh'])
                 call(['sh', 'update.sh'])
                 call(['rm', 'update.sh'])
+                return True
         else:
                 print('Version is up to date at version: ' + str(V2.version))
                 call(['rm', 'Tmp.py'])
                 call(['rm', '-r', 'PiCar'])
+                return False
 
 if __name__ == '__main__':
         update()
