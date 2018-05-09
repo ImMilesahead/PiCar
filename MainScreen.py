@@ -6,7 +6,6 @@ import os
 from mutagen.id3 import ID3
 from Updater import *
 from datetime import datetime
-from Functions import *
 from Screen import *
 from Button import *
 
