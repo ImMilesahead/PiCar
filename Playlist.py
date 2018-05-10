@@ -24,7 +24,7 @@ class Playlist:
         for line in lines:
             if len(line) < 2:
                 break
-            realdir = str(os.getcwd()) + '\\' + MUSIC_PATH + line
+            realdir = str(os.getcwd()) + '/' + MUSIC_PATH + line
             audio = ID3(realdir)
             name = audio['TIT2'].text[0]
             self.songs.append(Song(name, line))
