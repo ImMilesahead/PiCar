@@ -7,3 +7,5 @@ I realize I probably should have make a repo earlier but I didn't so, fight me.
 Added actual functionality to the Update.py, now simply run this file to get the most up to date version of the code
 
 ![alt text](https://raw.githubusercontent.com/immilesahead/PiCar/master/MainMenu.png)
+![alt text](https://raw.githubusercontent.com/immilesahead/PiCar/master/MusicMenu.png)
+![alt text](https://raw.githubusercontent.com/immilesahead/PiCar/master/PlaylistMenu.png)
