@@ -60,12 +60,12 @@ class MusicScreen(Screen):
     def nextSong(self):
         self.playlistManager.nextSong()
         self.playing = True
-        pygame.mixer.music.load(MUSIC_PATH+'\\'+str(self.playlistManager.getCurSong()))
+        pygame.mixer.music.load(MUSIC_PATH+'/'+str(self.playlistManager.getCurSong()))
         pygame.mixer.music.play()
 
     def prevSong(self):
         self.playlistManager.prevSong()
-        pygame.mixer.music.load(MUSIC_PATH+'\\'+str(self.playlistManager.getCurSong()))
+        pygame.mixer.music.load(MUSIC_PATH+'/'+str(self.playlistManager.getCurSong()))
         pygame.mixer.music.play()
 
     def back(self):
