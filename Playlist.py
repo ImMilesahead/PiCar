@@ -1,10 +1,10 @@
-from Variables import *
-import sys
 import os
-from mutagen.id3 import ID3
+import sys
 from Song import *
-from random import shuffle
 from Button import *
+from Variables import *
+from random import shuffle
+from mutagen.id3 import ID3
 
 class Playlist:
     def __init__(self, listFile=None):
@@ -24,10 +24,7 @@ class Playlist:
         for line in lines:
             if len(line) < 2:
                 break
-            realdir = str(os.getcwd()) + '/' + MUSIC_PATH + line
-            audio = ID3(realdir)
-            name = audio['TIT2'].text[0]
-            self.songs.append(Song(name, line))
+            self.songs.append(Song(line))
         self.size = len(self.songs)
 
     def addSong(self, songPath):
@@ -99,3 +96,6 @@ class Playlist:
         self.currentlyPlaying = song
         pygame.mixer.music.load(MUSIC_PATH+'/'+ self.getCurSong())
         pygame.mixer.music.play()
+
+    def getCurrentPlayingSongName(self):
+        return self.songs[self.currentlyPlaying].name

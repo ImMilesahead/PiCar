@@ -1,8 +1,9 @@
 import platform
 
 MEDIA_FILE=True
-os = platform.system()
-if os == 'Windows':
+currentos = platform.system()
+if currentos == 'Windows':
+    SLASH = '\\'
     MEDIA_PATH='Media\\'
     MUSIC_PATH=MEDIA_PATH+'Music\\'
     PICTURES_PATH=MEDIA_PATH+'Pictures\\'
@@ -12,6 +13,7 @@ else:
     MUSIC_PATH = MEDIA_PATH + 'Music/'
     PICTURES_PATH = MEDIA_PATH + 'Pictures/'
     VIDEOS_PATH = MEDIA_PATH + 'Videos/'
+    SLASH = '/'
 BACKGROUNDS={'Main' : 'bg-chuuni.jpg',
              'Music': 'bg.jpg'}
 

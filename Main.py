@@ -1,17 +1,18 @@
-from Variables import *
-import pygame
-from pygame.locals import *
-import sys
 import os
-from mutagen.id3 import ID3
-from Updater import *
-from datetime import datetime
+import sys
+import pygame
 from Screen import *
 from Button import *
+from Updater import *
+from Variables import *
 from MainScreen import *
 from MusicScreen import *
-from PlaylistDisplay import *
 from ScreenManager import *
+from pygame.locals import *
+from mutagen.id3 import ID3
+from PlaylistDisplay import *
+from datetime import datetime
+from DiagnosticScreen import *
 
 class PlaylistManager:
     def __init__(self):
@@ -26,6 +27,7 @@ if __name__ == '__main__':
     screenManager = ScreenManager(skrn)
     screenManager.addScreen(MainScreen(skrn, screenManager))
     screenManager.addScreen(MusicScreen(skrn, screenManager))
+    screenManager.addScreen(DiagnosticScreen(skrn, screenManager))
 
     pygame.display.set_caption(name)
 

@@ -1,8 +1,8 @@
-from Playlist import *
 import pygame
-from pygame.locals import *
-from ScreenManager import *
 from Button import *
+from Playlist import *
+from ScreenManager import *
+from pygame.locals import *
 
 class PlaylistDisplay(Screen):
     def __init__(self, skrn, screenManager, playlistManager, playlist, size=(800, 480)):
@@ -61,6 +61,8 @@ class PlaylistDisplay(Screen):
         self.playlist = playlist
         self.name = self.playlist.name
         self.size = self.playlist.size
+        self.reloadButtons()
+    def reloadButtons(self):
         # (Re)load buttons
         self.buttons = []
         
@@ -96,3 +98,11 @@ class PlaylistDisplay(Screen):
     def playSong(self, song):
         self.playlist.playSong(song)
         self.playing = True
+
+    def sortByArtist(self):
+        self.playlist.sortByArtist()
+        self.reloadButtons()
+    
+    def sortByName(self):
+        self.playlist.sortByName()
+        self.reloadButtons()

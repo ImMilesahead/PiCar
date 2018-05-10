@@ -1,13 +1,13 @@
-from Variables import *
-import pygame
-from pygame.locals import *
-import sys
 import os
-from mutagen.id3 import ID3
-from Updater import *
-from datetime import datetime
+import sys
+import pygame
 from Screen import *
 from Button import *
+from Updater import *
+from Variables import *
+from pygame.locals import *
+from mutagen.id3 import ID3
+from datetime import datetime
 
 
 class MainScreen(Screen):
@@ -17,10 +17,13 @@ class MainScreen(Screen):
         self.text_color = ((0, 153, 255))
         self.color_theme = (0, 153, 255)
         self.qButton = Button(skrn=self.skrn, size=self.size, color=self.color_theme, text='Quit', callback=Quit, text_offset=(10, 30), dim=(680, 350, 100, 100), text_size=50, text_color=self.text_color)
-        self.musicButton = Button(skrn=skrn, size=self.size, color=self.color_theme, text='Music', callback=self.screenManager.loadScreen, args=1, text_offset=(125, 75), dim=(25, 25, 350, 190), text_color=self.text_color)
+        self.musicButton = Button(skrn=skrn, size=self.size, color=self.color_theme, text='Music', callback=self.screenManager.loadScreen, args=1, text_offset=(125, 75), dim=(25, 25, 350, 175), text_color=self.text_color)
         self.updateButton = Button(skrn=skrn, size=self.size, color=self.color_theme, text='', callback=Update, text_offset=(10, 30), dim=(680, 240, 100, 100), text_size=36, text_color=self.text_color)
         
-        self.timeWindow = Button(skrn=skrn, size=self.size, color=self.color_theme, text='', callback=Nothing, dim=(400, 25, 375, 190))
+        self.diagnosticButton = Button(skrn=skrn, size=self.size, color=self.color_theme, text='Diagnostics', callback=self.screenManager.loadScreen, args=2, text_offset=(15, 40), dim=(25, 225, 275, 125), text_color=self.text_color)
+        self.mapsButton = Button(skrn=skrn, size=self.size, color=self.color_theme, text='Maps', callback=Nothing, args=None, text_offset=(15, 40), dim=(325, 225, 125, 125), text_color=self.text_color)
+
+        self.timeWindow = Button(skrn=skrn, size=self.size, color=self.color_theme, text='', callback=Nothing, dim=(400, 25, 375, 175))
         self.timeMessage = 'Time Goes Here'
         self.now = datetime.now()
         self.updateImage = pygame.image.load(PICTURES_PATH+'update.png')
@@ -36,6 +39,8 @@ class MainScreen(Screen):
         self.qButton.draw()
         self.updateButton.draw()
         self.musicButton.draw()
+        self.diagnosticButton.draw()
+        self.mapsButton.draw()
 
     def logic(self):
         self.now = datetime.now()
@@ -62,9 +67,11 @@ class MainScreen(Screen):
         self.qButton.logic()
         self.updateButton.logic()
         self.musicButton.logic()
+        self.diagnosticButton.logic()
         
     def event(self, event):
         self.qButton.event(event)
         self.timeWindow.event(event)
         self.updateButton.event(event)
         self.musicButton.event(event)
+        self.diagnosticButton.event(event)

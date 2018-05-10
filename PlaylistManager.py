@@ -1,15 +1,18 @@
-from Variables import *
-import pygame
-from pygame.locals import *
-import sys
 import os
-from mutagen.id3 import ID3
-from datetime import datetime
-from Screen import *
-from Playlist import *
-from Button import *
-from PlaylistDisplay import *
+import sys
+import pygame
 from Song import *
+from Screen import *
+from Button import *
+from Updater import *
+from Playlist import *
+from Variables import *
+from pygame.locals import *
+from mutagen.id3 import ID3
+from PlaylistManager import *
+from PlaylistDisplay import *
+from datetime import datetime
+
 
 class PlaylistManager(Screen):
     def __init__(self, skrn, screenManager, size=(800, 480)):
@@ -87,3 +90,5 @@ class PlaylistManager(Screen):
     def shuffle(self):
         self.playlists[self.playingPlaylist].shuffle()
         self.playlistDisplay.setPlaylist(self.playlists[self.playingPlaylist])
+    def getCurrentSongName(self):
+        return self.playlists[self.playingPlaylist].getCurrentPlayingSongName()

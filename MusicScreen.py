@@ -1,14 +1,15 @@
-from Variables import *
-import pygame
-from pygame.locals import *
-import sys
 import os
-from mutagen.id3 import ID3
-from datetime import datetime
+import sys
+import pygame
+from Song import *
 from Screen import *
 from Button import *
-from Song import *
+from Updater import *
+from Variables import *
+from pygame.locals import *
+from mutagen.id3 import ID3
 from PlaylistManager import *
+from datetime import datetime
 
 
 class MusicScreen(Screen):
@@ -24,6 +25,8 @@ class MusicScreen(Screen):
         self.prevButton = Button(skrn=skrn, size=self.size, color=self.color_theme, text='Prev', text_size=30, callback=self.prevSong, args=None, text_offset=(15, 5), dim=(25, 385, 75, 75), width=2, image='prev.png', image_offset=(10, 10), image_offscale=(20, 20))
         self.backButton = Button(skrn=self.skrn, size=self.size, color=self.color_theme, text='Back', callback=self.back, args=None, text_offset=(10, 30), dim=(680, 350, 100, 100), text_size=50, text_color=self.color_theme, width=5)
 
+        self.nowPlayingName = self.playlistManager.getCurrentSongName()
+
 
     def draw(self):
         self.skrn.fill((35, 35, 35))
@@ -35,6 +38,7 @@ class MusicScreen(Screen):
         self.playButton.draw()
         self.nextButton.draw()
         self.prevButton.draw()
+        text(self.skrn, 'Now Playing: ' + self.nowPlayingName, (10, 0), 24, (0, 153, 255))
         #self.shuffleButton.draw()
     
     def logic(self):
@@ -43,6 +47,7 @@ class MusicScreen(Screen):
         self.backButton.logic()
     def buttonLogic(self):
         self.playButton.logic()
+        self.nowPlayingName = self.playlistManager.getCurrentSongName()
         self.nextButton.logic()
         self.prevButton.logic()
         #self.shuffleButton.logic()
