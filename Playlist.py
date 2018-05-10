@@ -97,5 +97,5 @@ class Playlist:
         
     def playSong(self, song):
         self.currentlyPlaying = song
-        pygame.mixer.music.load(MUSIC_PATH+'\\'+ self.getCurSong())
+        pygame.mixer.music.load(MUSIC_PATH+'/'+ self.getCurSong())
         pygame.mixer.music.play()

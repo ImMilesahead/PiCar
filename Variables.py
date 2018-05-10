@@ -15,7 +15,7 @@ else:
 BACKGROUNDS={'Main' : 'bg-chuuni.jpg',
              'Music': 'bg.jpg'}
 
-version = 0.21
+version = 0.22
 name = "karu"
 
 def load_images():
