@@ -13,12 +13,9 @@ pygame.init()
 pygame.mixer.init()
      
 skrn = pygame.display.set_mode((800, 480))
+
 def Nothing():
     pass
-
-def Shuffle(args):
-    args[0].shuffle()
-    NextSong([args[1].screens[1]])
 
 def Update():
     global SystemMessage
@@ -30,64 +27,6 @@ def Update():
 def Quit():
     pygame.quit()
     sys.exit()
-
-def LoadPlaylist(args):
-    manager = args[0]
-    manager.playPlaylist(args[1])
-
-def LoadMusic(args):
-    args[0].currentScreen = 1
-
-def BackToMenu(args):
-    if args[0].screens[1].playlistManager.showPlaylist:
-        args[0].screens[1].playlistManager.showPlaylist = False
-    else:
-        args[0].currentScreen = 0
-
-def PlaySong(args):
-    print('Play a song')
-    pygame.mixer.music.load(MUSIC_PATH+'\\'+args[0])
-    pygame.mixer.music.play()
-    print('Playing song at: ' + MUSIC_PATH+args[0])
-    args[1].playing = True
-
-def ToggleMusic(args):
-    if args[0].playing:
-        pygame.mixer.music.pause()
-    else:
-        pygame.mixer.music.unpause()
-    args[0].playing = not args[0].playing
-
-def ScrollUp(args):
-    musicScreen = args[0]
-    musicScreen.start -= 1
-    musicScreen.end -= 1
-    if musicScreen.start <= 0:
-        musicScreen.start = 0
-        musicScreen.end = 10
-
-def ScrollDown(args):
-    musicScreen = args[0]
-    musicScreen.start += 1
-    musicScreen.end += 1
-    if musicScreen.end >= len(musicScreen.music):
-        musicScreen.end = len(musicScreen.music)
-        musicScreen.start = musicScreen.end - 10
-
-def PreviousSong(args):
-    manager = args[0].playlistManager
-    manager.prevSong()
-    pygame.mixer.load(MUSIC_PATH+'\\'+str(manager.getCurSong()))
-    pygame.mixer.music.pay()
-
-def NextSong(args):
-    manager = args[0].playlistManager
-    args[0].playing = True
-    manager.nextSong()
-    pygame.mixer.music.load(MUSIC_PATH+'\\'+str(manager.getCurSong()))
-    pygame.mixer.music.play()
-
-    
 
 def text(skrn, text, pos=(0, 0), size=60, color=(255, 200, 100)):
     sys_font = pygame.font.SysFont("None", int(size))
@@ -134,8 +73,9 @@ class Button(Screen):
         pass
 
     def event(self, event):
-        if event.type == pygame.MOUSEBUTTONDOWN:
+        if event.type == pygame.MOUSEBUTTONUP:
             mouse_pos = pygame.mouse.get_pos()
+            self.start_mouse_pos = mouse_pos
             if mouse_pos[0] >= self.dim[0] and mouse_pos[0] <= self.dim[0] + self.dim[2] and mouse_pos[1] >= self.dim[1] and mouse_pos[1] <= self.dim[1] + self.dim[3]:
                 if self.args == None:
                     self.callback()

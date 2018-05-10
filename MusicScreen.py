@@ -19,11 +19,10 @@ class MusicScreen(Screen):
         self.playing = False
         self.color_theme = (0, 153, 255)
         
-        self.playButton = Button(skrn=skrn, size=self.size, text='>\||', text_size=30, callback=ToggleMusic, args=[self], dim=(100, 410, 50, 50), color=self.color_theme, width=2, text_offset=(15, 5), image='playPause.png')
-        self.nextButton = Button(skrn=skrn, size=self.size, color=self.color_theme, text='Next', text_size=30, callback=NextSong, args=[self], text_offset=(15, 5), dim=(165, 410, 75, 50), width=2, image='next.png')
-        self.prevButton = Button(skrn=skrn, size=self.size, color=self.color_theme, text='Prev', text_size=30, callback=NextSong, args=[self], text_offset=(15, 5), dim=(15, 410, 75, 50), width=0)
-        self.backButton = Button(skrn=self.skrn, size=self.size, color=self.color_theme, text='Back', callback=BackToMenu, args=[self.screenManager], text_offset=(10, 30), dim=(680, 350, 100, 100), text_size=50, text_color=self.color_theme, width=5)
-        self.shuffleButton = Button(skrn=skrn, size=self.size, color=self.color_theme, text='Shuffle', text_size=30, callback=Shuffle, args=[self.playlistManager.playlists[self.playlistManager.currentPlaylist], self.screenManager], text_offset=(15, 5), dim=(250, 410, 65, 50), width=2, image='shuffle.png')
+        self.playButton = Button(skrn=skrn, size=self.size, text='>\||', text_size=30, callback=self.toggleMusic, args=None, dim=(125, 385, 75, 75), color=self.color_theme, width=2, text_offset=(15, 5), image='playPause.png', image_offscale=(20, 20), image_offset=(10, 10))
+        self.nextButton = Button(skrn=skrn, size=self.size, color=self.color_theme, text='Next', text_size=30, callback=self.nextSong, args=None, text_offset=(15, 5), dim=(225, 385, 75, 75), width=2, image='next.png', image_offscale=(20, 20), image_offset=(10, 10))
+        self.prevButton = Button(skrn=skrn, size=self.size, color=self.color_theme, text='Prev', text_size=30, callback=self.prevSong, args=None, text_offset=(15, 5), dim=(25, 385, 75, 75), width=2, image='prev.png', image_offset=(10, 10), image_offscale=(20, 20))
+        self.backButton = Button(skrn=self.skrn, size=self.size, color=self.color_theme, text='Back', callback=self.back, args=None, text_offset=(10, 30), dim=(680, 350, 100, 100), text_size=50, text_color=self.color_theme, width=5)
 
 
     def draw(self):
@@ -36,7 +35,7 @@ class MusicScreen(Screen):
         self.playButton.draw()
         self.nextButton.draw()
         self.prevButton.draw()
-        self.shuffleButton.draw()
+        #self.shuffleButton.draw()
     
     def logic(self):
         self.playlistManager.logic()
@@ -46,7 +45,7 @@ class MusicScreen(Screen):
         self.playButton.logic()
         self.nextButton.logic()
         self.prevButton.logic()
-        self.shuffleButton.logic()
+        #self.shuffleButton.logic()
 
     def event(self, event):
         self.playlistManager.event(event)
@@ -56,4 +55,32 @@ class MusicScreen(Screen):
         self.playButton.event(event)
         self.nextButton.event(event)
         self.prevButton.event(event)
-        self.shuffleButton.event(event)
+        #self.shuffleButton.event(event)
+
+    def nextSong(self):
+        self.playlistManager.nextSong()
+        self.playing = True
+        pygame.mixer.music.load(MUSIC_PATH+'\\'+str(self.playlistManager.getCurSong()))
+        pygame.mixer.music.play()
+
+    def prevSong(self):
+        self.playlistManager.prevSong()
+        pygame.mixer.music.load(MUSIC_PATH+'\\'+str(self.playlistManager.getCurSong()))
+        pygame.mixer.music.play()
+
+    def back(self):
+        if self.playlistManager.showPlaylist:
+            self.playlistManager.showPlaylist = False
+        else:
+            self.screenManager.loadScreen(0)
+
+    
+    def toggleMusic(self):
+        if self.playing:
+            pygame.mixer.music.pause()
+        else:
+            pygame.mixer.music.unpause()
+        self.playing = not self.playing
+
+    def shuffle(self):
+        self.playlistManager.shuffle()

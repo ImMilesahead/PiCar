@@ -1,12 +1,21 @@
+import platform
+
 MEDIA_FILE=True
-MEDIA_PATH='Media\\'
-MUSIC_PATH=MEDIA_PATH+'Music\\'
-PICTURES_PATH=MEDIA_PATH+'Pictures\\'
-VIEOS_PATH=MEDIA_PATH+'Videos\\'
+os = platform.system()
+if os == 'Windows':
+    MEDIA_PATH='Media\\'
+    MUSIC_PATH=MEDIA_PATH+'Music\\'
+    PICTURES_PATH=MEDIA_PATH+'Pictures\\'
+    VIEOS_PATH=MEDIA_PATH+'Videos\\'
+else:
+    MEDIA_PATH='./Media/'
+    MUSIC_PATH = MEDIA_PATH + 'Music/'
+    PICTURES_PATH = MEDIA_PATH + 'Pictures/'
+    VIDEOS_PATH = MEDIA_PATH + 'Videos/'
 BACKGROUNDS={'Main' : 'bg-chuuni.jpg',
              'Music': 'bg.jpg'}
 
-version = 0.1
+version = 0.2
 name = "karu"
 
 def load_images():

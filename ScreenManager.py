@@ -24,12 +24,12 @@ class ScreenManager:
 
     def update(self):
         self.skrn.fill((0, 0, 0))
+        self.screens[self.currentScreen].logic()
         self.screens[self.currentScreen].draw()
         text(self.skrn, self.mouse_pos, (10, 462), 24, (255, 255, 255))
         text(self.skrn, self.systemMessage, (650, 462), 24, (0, 255, 0))
-        self.screens[self.currentScreen].logic()
         if not pygame.mixer.music.get_busy() and self.screens[1].playing:
-            NextSong([self.screens[1]])
+            self.screens[1].nextSong()
         # Mouse Logic
         self.mouse_pos = pygame.mouse.get_pos()
         if not self.currentScreen == 1:
@@ -39,3 +39,5 @@ class ScreenManager:
         self.screens[self.currentScreen].event(event)
         if not self.currentScreen == 1:
             self.screens[1].buttonEvent(event)
+    def loadScreen(self, x):
+        self.currentScreen = x

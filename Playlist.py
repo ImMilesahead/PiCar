@@ -4,6 +4,7 @@ import os
 from mutagen.id3 import ID3
 from Song import *
 from random import shuffle
+from Button import *
 
 class Playlist:
     def __init__(self, listFile=None):
@@ -81,6 +82,7 @@ class Playlist:
             self.currentlyPlaying = self.currentlyPlaying + 1
         else:
             self.currentlyPlaying = 0
+        
     def prevSong(self):
         if self.currentlyPlaying > 0:
             self.currentlyPlaying = self.currentlyPlaying - 1
@@ -92,3 +94,8 @@ class Playlist:
         
     def shuffle(self):
         shuffle(self.songs)
+        
+    def playSong(self, song):
+        self.currentlyPlaying = song
+        pygame.mixer.music.load(MUSIC_PATH+'\\'+ self.getCurSong())
+        pygame.mixer.music.play()
