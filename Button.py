@@ -7,13 +7,15 @@ from mutagen.id3 import ID3
 from Updater import *
 from datetime import datetime
 from Screen import *
-
+from platform import system
 
 pygame.init()
 pygame.mixer.init()
-     
-skrn = pygame.display.set_mode((800, 480))
-
+# TODO Move this somewhere usefull
+if system() == 'Windows':
+    skrn = pygame.display.set_mode((800, 480))
+else:
+    skrn = pygame.display.set_mode((800, 480), pygame.FULLSCREEN)
 def Nothing():
     pass
 
