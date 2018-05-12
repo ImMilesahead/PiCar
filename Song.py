@@ -12,6 +12,7 @@ from datetime import datetime
 class Song:
     def __init__(self, path):
         self.path = path
+        self.name = "None"
         try:
             audio = MP3(self.getRealPath())
             self.length = audio.info.length
@@ -25,4 +26,4 @@ class Song:
             print ('Something went wrong')
             print(self.path)
     def getRealPath(self):
-        return str(os.getcwd()) + SLASH + MUSIC_PATH + self.path
+        return MUSIC_PATH + self.path

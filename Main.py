@@ -14,14 +14,6 @@ from PlaylistDisplay import *
 from datetime import datetime
 from DiagnosticScreen import *
 
-class PlaylistManager:
-    def __init__(self):
-        self.playlists = []
-        self.size = 0
-        self.currentPlaylist = 0 
-
-
-
 if __name__ == '__main__':
 
     screenManager = ScreenManager(skrn)

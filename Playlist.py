@@ -18,7 +18,7 @@ class Playlist:
         playlist length hours
         '''
     def loadPlaylist(self):
-        playlistFile = open('./Media/Playlists/' + self.name, 'r')
+        playlistFile = open(MEDIA_PATH+'Playlists/' + self.name, 'r')
         lines = playlistFile.read().split('\n')
         playlistFile.close()
         for line in lines:
@@ -28,16 +28,16 @@ class Playlist:
         self.size = len(self.songs)
 
     def addSong(self, songPath):
-        playlistFile = open('./Media/Playlists/' + self.name, 'a')
+        playlistFile = open(MEDIA_PATH+'Playlists/' + self.name, 'a')
         playlistFile.write(songPath + '\n')
         playlistFile.close()
         self.size = len(self.songs)
 
     def removeSong(self, songPath):
-        playlistFile = open('./Media/Playlists/' + self.name, 'r')
+        playlistFile = open(MEDIA_PATH+'Playlists/' + self.name, 'r')
         lines = playlistFile.read().split('\n')
         playlistFile.close()
-        playlistFile = open('./Media/Playlists/' + self.name, 'w')
+        playlistFile = open(MEDIA_PATH+'Playlists/' + self.name, 'w')
         for line in lines:
             if not line == songPath:
                 playlistFile.write(line + '\n')

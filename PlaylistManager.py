@@ -68,7 +68,7 @@ class PlaylistManager(Screen):
             # actually it should never  be called like this so uh yeah this shouldn't ever happen
             pass
     def loadAllSongs(self):
-        playlist = open('./Media/Playlists/AllSongs', 'w')
+        playlist = open(MEDIA_PATH + 'Playlists/AllSongs', 'w')
         songs = os.listdir(MUSIC_PATH)
         for song in songs:
             playlist.write(song + '\n')
@@ -76,7 +76,7 @@ class PlaylistManager(Screen):
 
     def loadPlaylists(self):
         self.loadAllSongs()
-        playlists = os.listdir('./Media/Playlists/')
+        playlists = os.listdir(MEDIA_PATH+'Playlists/')
         for playlist in playlists:
             plist = Playlist(playlist)
             self.playlists.append(plist)

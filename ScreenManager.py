@@ -17,7 +17,7 @@ class ScreenManager:
         self.screens = []
         self.currentScreen = 0
         self.mouse_pos = (0, 0)
-        self.systemMessage = 'All Systems Green!'
+        self.systemMessage = 'S - Interface Mk 1'
     
     def addScreen(self, screen):
         self.screens.append(screen)
@@ -28,6 +28,7 @@ class ScreenManager:
         self.screens[self.currentScreen].draw()
         text(self.skrn, self.mouse_pos, (10, 462), 24, (255, 255, 255))
         text(self.skrn, self.systemMessage, (650, 462), 24, (0, 255, 0))
+
         if not pygame.mixer.music.get_busy() and self.screens[1].playing:
             self.screens[1].nextSong()
         # Mouse Logic
